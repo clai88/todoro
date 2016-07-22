@@ -2,8 +2,10 @@ require "./config/dependencies"
 require 'better_errors'
 
 class App < Sinatra::Base
-  # YOU NEED DIS
+  # Expose any file stored in this folder to the internet
+  # http://localhost:4567/css/example.css
   set :public_folder, File.dirname(__FILE__) + '/assets'
+
   # AND DIS
   use Rack::MethodOverride
   configure :development do
@@ -37,10 +39,18 @@ class App < Sinatra::Base
   end
 
   post "/lists/:name/items" do
-    @current_list_id = List.find_by(name: params["name"]).id
+    @current_list = List.find_by(name: params["name"])
     @current_list_name= params["name"]
-    current = Task.create(params["task"])
-    current.update(list_id: @current_list_id)
+    @current = Task.create(params["task"])
+    @current.update(list_id: @current_list.id)
+
+    redirect to("/lists/#{params["name"]}")
+  end
+
+  patch "/items/:id" do
+    @task = Task.find(params["id"])
+    @task.update(params["task"])
+
 
     redirect to("/lists/#{params["name"]}")
   end

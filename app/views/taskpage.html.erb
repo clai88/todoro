@@ -3,8 +3,6 @@
 
   <h2>these are your tasks:</h2>
 
-
-
   <table class="table">
     <thead>
       <tr>
@@ -13,6 +11,9 @@
         </th>
         <th>
           Due date
+        </th>
+        <th>
+          Update Due date
         </th>
         <th>
           Mark as complete
@@ -24,6 +25,19 @@
       <tr>
         <td>
           <%= task.name %>
+        </td>
+        <td>
+          <% if task.due_date == nil %>
+          Due date not set
+          <% else %>
+          <%= task.due_date %>
+          <% end %>
+        </td>
+        <td>
+          <form action="/items/<% @current.id %>" method="patch">
+          <input type="text" name="task[due_date]" value="" placeholder="April 1 2016">
+          <input type="submit" name="submit_button" value="Submit">
+          </form>
         </td>
       </tr>
       <% end %>
@@ -39,7 +53,7 @@
 
 
   <a href="http://localhost:4567/">
-    <img src="https://media.licdn.com/mpr/mpr/p/3/005/0a6/0b8/09fc494.png" alt="HTML tutorial" >
+    <img class="back_button" src="https://media.licdn.com/mpr/mpr/p/3/005/0a6/0b8/09fc494.png" alt="HTML tutorial" >
   </a>
 
 </main>

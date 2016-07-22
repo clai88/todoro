@@ -1,0 +1,17 @@
+img.back_button{
+  width: 45px;
+  height: 45px;
+  padding: 15px
+}
+
+body {
+  background-color: rgb(252, 0, 182);
+}
+
+.table{
+  padding: 5px 15px 30px 15px;
+}
+
+span{
+  color: rgb(11, 70, 74)
+}

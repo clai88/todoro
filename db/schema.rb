@@ -21,11 +21,12 @@ ActiveRecord::Schema.define(version: 20160721155918) do
     t.string   "name"
     t.boolean  "completed"
     t.datetime "due_date"
+    t.integer  "list_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
-    t.integer  "user_id"
+    t.integer  "list_id"
     t.datetime "picked_at"
   end
 

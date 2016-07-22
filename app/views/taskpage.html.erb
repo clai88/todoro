@@ -1,18 +1,47 @@
 <main>
-  <h1>Welcome to your list </h1>
+  <h1>Welcome to your list <%= @current_list_name %> </h1>
 
   <h2>these are your tasks:</h2>
 
-  <% @tasks.each do |task| %>
-  <p>
-     <%= task %>
-  </p>
-  <% end %>
+
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>
+          Task
+        </th>
+        <th>
+          Due date
+        </th>
+        <th>
+          Mark as complete
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tasks.each do |task| %>
+      <tr>
+        <td>
+          <%= task.name %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+
 
   <form action="/lists/<%= @current_list_name %>/items" method="post">
     <input type="text" name="task[name]" value="" placeholder="buy raw carrots">
-    <input type="submit" name="submit_button" value="Go">
+    <input type="submit" name="submit_button" value="Submit">
   </form>
+
+
+  <a href="http://localhost:4567/">
+    <img src="https://media.licdn.com/mpr/mpr/p/3/005/0a6/0b8/09fc494.png" alt="HTML tutorial" >
+  </a>
+
 </main>
 <aside class="">
 

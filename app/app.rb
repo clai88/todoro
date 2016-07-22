@@ -7,9 +7,9 @@ class App < Sinatra::Base
   # AND DIS
   use Rack::MethodOverride
   configure :development do
-  use BetterErrors::Middleware
-  BetterErrors.application_root = __dir__
-end
+    use BetterErrors::Middleware
+    BetterErrors.application_root = __dir__
+  end
 
   get "/" do
     @lists = List.all
@@ -27,15 +27,22 @@ end
   end
 
   get "/lists/:name" do
-      @lists = List.all
-      @current_list_name= params["name"]
-        @tasks = Task.all
+    @lists = List.all
+    @current_list = List.find_by(name: params["name"])
+    @current_list_name= @current_list.name
+    @tasks = @current_list.tasks
+    # binding.pry
+
     erb :"taskpage.html"
   end
 
   post "/lists/:name/items" do
-    Task.create(params["task"])
-    redirect to('/lists/#{@current_list_name}')
+    @current_list_id = List.find_by(name: params["name"]).id
+    @current_list_name= params["name"]
+    current = Task.create(params["task"])
+    current.update(list_id: @current_list_id)
+
+    redirect to("/lists/#{params["name"]}")
   end
 
 

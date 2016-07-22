@@ -1,7 +1,18 @@
 <main>
   <h1>Welcome to Todo list</h1>
 
+  <h2>these are your lists:</h2>
+
+  <h5>
+    <% @lists.each do |list| %>
+    <p>
+      <a href="http://localhost:4567/lists/<%= list.name %>"> <%= list.name %></a>
+    </p>
+    <% end %>
+  </h5>
+
   <form action="/lists" method="post">
+    <input type="text" name="list[name]" value="" placeholder="groceries">
     <input type="submit" name="submit_button" value="Go">
   </form>
 </main>

@@ -17,4 +17,9 @@ class AppTest < Minitest::Test
     response = get "/"
     assert response.ok?
   end
+
+  def test_can_create_list
+
+
+  end
 end

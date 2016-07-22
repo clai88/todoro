@@ -1,0 +1,19 @@
+<main>
+  <h1>Welcome to your list </h1>
+
+  <h2>these are your tasks:</h2>
+
+  <% @tasks.each do |task| %>
+  <p>
+     <%= task %>
+  </p>
+  <% end %>
+
+  <form action="/lists/<%= @current_list_name %>/items" method="post">
+    <input type="text" name="task[name]" value="" placeholder="buy raw carrots">
+    <input type="submit" name="submit_button" value="Go">
+  </form>
+</main>
+<aside class="">
+
+</aside>

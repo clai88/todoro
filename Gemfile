@@ -3,6 +3,8 @@ source "https://rubygems.org"
 gem "sinatra"
 gem "activerecord", "~> 4.2"
 gem "rake"
+gem "better_errors"
+gem "binding_of_caller"
 
 group :test, :development do
   gem "pry"

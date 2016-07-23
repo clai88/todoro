@@ -8,6 +8,7 @@ class App < Sinatra::Base
 
   # AND DIS
   use Rack::MethodOverride
+
   configure :development do
     use BetterErrors::Middleware
     BetterErrors.application_root = __dir__
@@ -50,14 +51,7 @@ class App < Sinatra::Base
     @task = Task.find(params["id"])
     @task.update(params["task"])
 
-    list_id = @task.list_id
-    list_name = ""
-
-    List.all.each do |list|
-      if list_id == list.id
-        list_name = list.name
-      end
-    end
+    list_name = (List.all.select { |list| @task.list_id == list.id })[0].name
     # binding.pry
     redirect to("/lists/#{list_name}")
   end
@@ -66,28 +60,26 @@ class App < Sinatra::Base
     @task = Task.find(params["id"])
     @task.destroy
 
-    list_id = @task.list_id
-    list_name = ""
+    list_name = (List.all.select { |list| @task.list_id == list.id })[0].name
 
-    List.all.each do |list|
-      if list_id == list.id
-        list_name = list.name
-      end
-    end
     redirect to("/lists/#{list_name}")
   end
 
   get "/next" do
     task = Task.all
     @random_task = task[rand(0..task.length-1)]
-        
+
     erb :"randompage.html"
   end
 
-  get "/search?q=" do
+  get "/search" do
+    @query = params[:q]
+    @matched_list_items = List.all.select { |i| i.name.include? @query }
+    @matched_task_items = Task.all.select { |i| i.name.include? @query }
 
+    # binding.pry
+    erb :"searchpage.html"
   end
-
 
   run! if app_file == $PROGRAM_NAME
 end

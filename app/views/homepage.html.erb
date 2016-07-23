@@ -3,13 +3,13 @@
 
   <h2>these are your lists:</h2>
 
-  <h5>
+  <ul>
     <% @lists.each do |list| %>
-    <p>
+    <li>
       <a href="http://localhost:4567/lists/<%= list.name %>"> <%= list.name %></a>
-    </p>
+    </li>
     <% end %>
-  </h5>
+  </ul>
 
   <form action="/lists" method="post">
     <input type="text" name="list[name]" value="" placeholder="groceries">
@@ -21,7 +21,11 @@
     <img src="http://vignette2.wikia.nocookie.net/animaljam/images/3/35/Totoro_by_noodlecutie123-d3j76oj.png/revision/latest?cb=20150228122848" >
   </a>
 
+  <form action="/search?q=" method="get">
+    <input type="" name="q" value="" placeholder="orangatan">
+    <input type="submit" name="submit_button" value="Search">
+  </form>
+
 </main>
 <aside class="">
-
 </aside>

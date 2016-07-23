@@ -32,14 +32,14 @@
           <% end %>
         </td>
         <td>
-          <form action="/items/<%= task.id %>" method="POST">
+          <form action="/items/<%= @random_task.id %>" method="POST">
             <input type="hidden" name="_method" value="PATCH">
-            <input type="text" name="task[due_on]" value="" placeholder="April 1 2016">
+            <input type="datetime-local" name="task[due_on]" value="" placeholder="April 1 2016">
             <input type="submit" name="submit_button" value="Submit">
           </form>
         </td>
         <td>
-          <form action="/items/<%= task.id %>" method="POST">
+          <form action="/items/<%= @random_task.id %>" method="POST">
             <input type="hidden" name="_method" value="DELETE">
             <input type="submit" name="submit_button" value="Delete task">
           </form>

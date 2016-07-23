@@ -1,0 +1,66 @@
+<h1>You searched for <%= @query %> </h1>
+
+<h3>This is a list of lists that match the query: <%= @query %></h3>
+<ul>
+  <% @matched_list_items.each do |list| %>
+  <li>
+    <%= list.name %>
+  </li>
+  <% end %>
+</ul>
+
+
+
+<h3>This is a list of tasks that match the query: <%= @query %></h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th>
+        Task
+      </th>
+      <th>
+        Due date
+      </th>
+      <th>
+        Update Due date
+      </th>
+      <th>
+        Mark as complete
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @matched_task_items.each do |task| %>
+    <tr>
+      <td>
+        <%= task.name %>
+      </td>
+      <td>
+        <% if task.due_on == nil %>
+        Due date not set
+        <% else %>
+        <%= task.due_on %>
+        <% end %>
+      </td>
+      <td>
+        <form action="/items/<%= task.id %>" method="POST">
+          <input type="hidden" name="_method" value="PATCH">
+          <input type="datetime-local" name="task[due_on]" value="" placeholder="April 1 2016">
+          <input type="submit" name="submit_button" value="Submit">
+        </form>
+      </td>
+      <td>
+        <form action="/items/<%= task.id %>" method="POST">
+          <input type="hidden" name="_method" value="DELETE">
+          <input type="submit" name="submit_button" value="Delete task">
+        </form>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<marquee direction="right"><a href="http://localhost:4567/">
+  <img class="back_button" src="http://i644.photobucket.com/albums/uu168/melonangie/Anime/Totoro.png" >
+</a>
+</marquee>

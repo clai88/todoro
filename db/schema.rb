@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20160721155918) do
   create_table "tasks", force: :cascade do |t|
     t.string   "name"
     t.boolean  "completed"
-    t.datetime "due_date"
+    t.datetime "due_on"
     t.integer  "list_id"
   end
 

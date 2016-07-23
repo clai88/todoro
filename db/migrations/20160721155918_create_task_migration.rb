@@ -3,7 +3,7 @@ class CreateTaskMigration < ActiveRecord::Migration
     create_table(:tasks) do |t|
       t.string :name
       t.boolean :completed
-      t.datetime :due_date
+      t.datetime :due_on
       t.integer :list_id
     end
   end

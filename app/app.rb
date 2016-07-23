@@ -33,16 +33,15 @@ class App < Sinatra::Base
     @current_list = List.find_by(name: params["name"])
     @current_list_name= @current_list.name
     @tasks = @current_list.tasks
-    # binding.pry
 
     erb :"taskpage.html"
   end
 
   post "/lists/:name/items" do
     @current_list = List.find_by(name: params["name"])
-    @current_list_name= params["name"]
-    @current = Task.create(params["task"])
-    @current.update(list_id: @current_list.id)
+    @current_list_name = params["name"]
+    current = Task.create(params["task"])
+    current.update(list_id: @current_list.id)
 
     redirect to("/lists/#{params["name"]}")
   end
@@ -51,17 +50,38 @@ class App < Sinatra::Base
     @task = Task.find(params["id"])
     @task.update(params["task"])
 
+    list_id = @task.list_id
+    list_name = ""
 
-    redirect to("/lists/#{params["name"]}")
+    List.all.each do |list|
+      if list_id == list.id
+        list_name = list.name
+      end
+    end
+    # binding.pry
+    redirect to("/lists/#{list_name}")
   end
 
-
   delete "/items/:id" do
+    @task = Task.find(params["id"])
+    @task.destroy
 
+    list_id = @task.list_id
+    list_name = ""
+
+    List.all.each do |list|
+      if list_id == list.id
+        list_name = list.name
+      end
+    end
+    redirect to("/lists/#{list_name}")
   end
 
   get "/next" do
-
+    task = Task.all
+    @random_task = task[rand(0..task.length-1)]
+    
+    erb :"randompage.html"
   end
 
   get "/search?q=" do

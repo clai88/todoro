@@ -80,7 +80,7 @@ class App < Sinatra::Base
   get "/next" do
     task = Task.all
     @random_task = task[rand(0..task.length-1)]
-    
+        
     erb :"randompage.html"
   end
 

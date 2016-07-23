@@ -2,7 +2,52 @@
 
   <h1>Here is a random task from the list:  <span>TODO</span>RO</h1>
 
-  
+  <table class="table">
+    <thead>
+      <tr>
+        <th>
+          Task
+        </th>
+        <th>
+          Due date
+        </th>
+        <th>
+          Update Due date
+        </th>
+        <th>
+          Mark as complete
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <%= @random_task.name %>
+        </td>
+        <td>
+          <% if @random_task.due_on == nil %>
+          Due date not set
+          <% else %>
+          <%= @random_task.due_on %>
+          <% end %>
+        </td>
+        <td>
+          <form action="/items/<%= task.id %>" method="POST">
+            <input type="hidden" name="_method" value="PATCH">
+            <input type="text" name="task[due_on]" value="" placeholder="April 1 2016">
+            <input type="submit" name="submit_button" value="Submit">
+          </form>
+        </td>
+        <td>
+          <form action="/items/<%= task.id %>" method="POST">
+            <input type="hidden" name="_method" value="DELETE">
+            <input type="submit" name="submit_button" value="Delete task">
+          </form>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
 
   <marquee><a href="http://localhost:4567/">
     <img class="back_button" src="http://i644.photobucket.com/albums/uu168/melonangie/Anime/Totoro.png" >

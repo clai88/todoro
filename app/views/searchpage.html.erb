@@ -1,64 +1,36 @@
 <h1>You searched for <%= @query %> </h1>
 
-<h3>This is a list of lists that match the query: <%= @query %></h3>
+<% if @matched_list_items.empty? %>
+<h3>There are no list names that contain: <%= @query %></h3>
+
+<% else %>
+
+<h3>This is a list of lists that match your query:</h3>
 <ul>
   <% @matched_list_items.each do |list| %>
   <li>
-    <%= list.name %>
+    <a href="http://localhost:4567/lists/<%= list.name %>"> <%= list.name %></a>
   </li>
   <% end %>
 </ul>
+<% end %>
 
 
+<% if @matched_task_items.empty? %>
+<h3>There are no tasks that contain: <%= @query %></h3>
 
-<h3>This is a list of tasks that match the query: <%= @query %></h3>
-<table class="table">
-  <thead>
-    <tr>
-      <th>
-        Task
-      </th>
-      <th>
-        Due date
-      </th>
-      <th>
-        Update Due date
-      </th>
-      <th>
-        Mark as complete
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @matched_task_items.each do |task| %>
-    <tr>
-      <td>
-        <%= task.name %>
-      </td>
-      <td>
-        <% if task.due_on == nil %>
-        Due date not set
-        <% else %>
-        <%= task.due_on %>
-        <% end %>
-      </td>
-      <td>
-        <form action="/items/<%= task.id %>" method="POST">
-          <input type="hidden" name="_method" value="PATCH">
-          <input type="datetime-local" name="task[due_on]" value="" placeholder="April 1 2016">
-          <input type="submit" name="submit_button" value="Submit">
-        </form>
-      </td>
-      <td>
-        <form action="/items/<%= task.id %>" method="POST">
-          <input type="hidden" name="_method" value="DELETE">
-          <input type="submit" name="submit_button" value="Delete task">
-        </form>
-      </td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+<% else %>
+<h3>This is a list of tasks that match your query:</h3>
+<ul>
+  <% @matched_task_items.each do |mtask| %>
+  <li>
+    <%list_name = (@lists.select { |list| mtask.list_id == list.id })[0].name %>
+    <a href="http://localhost:4567/lists/<%= list_name %>"> <%= mtask.name %></a>
+  </li>
+  <% end %>
+</ul>
+<% end %>
+
 
 <marquee direction="right"><a href="http://localhost:4567/">
   <img class="back_button" src="http://i644.photobucket.com/albums/uu168/melonangie/Anime/Totoro.png" >

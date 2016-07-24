@@ -74,9 +74,10 @@ class App < Sinatra::Base
 
   get "/search" do
     @query = params[:q]
+    @lists = List.all
     @matched_list_items = List.all.select { |i| i.name.include? @query }
     @matched_task_items = Task.all.select { |i| i.name.include? @query }
-
+    
     # binding.pry
     erb :"searchpage.html"
   end

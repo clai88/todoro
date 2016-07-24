@@ -4,8 +4,12 @@ img.back_button{
   padding: 15px
 }
 
-body {
+main {
+  width: 800px
+  margin: 0 auto;
   background-color: rgb(252, 0, 182);
+  padding: 20px;
+  border-radius: 5px;
 }
 
 .table{

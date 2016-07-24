@@ -68,6 +68,7 @@ class App < Sinatra::Base
   get "/next" do
     task = Task.all
     @random_task = task[rand(0..task.length-1)]
+    @r_task_name = (List.all.select { |list| @random_task.list_id == list.id })[0].name
 
     erb :"randompage.html"
   end
@@ -77,7 +78,7 @@ class App < Sinatra::Base
     @lists = List.all
     @matched_list_items = List.all.select { |i| i.name.include? @query }
     @matched_task_items = Task.all.select { |i| i.name.include? @query }
-    
+
     # binding.pry
     erb :"searchpage.html"
   end

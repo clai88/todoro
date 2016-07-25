@@ -8,3 +8,4 @@ let i=i+1
 done
 
 rake db:migrate
+ruby app/app.rb

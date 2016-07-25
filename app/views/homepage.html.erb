@@ -1,29 +1,65 @@
-
+<div class="well" id = "title">
   <h1>Welcome to <span>TODO</span>RO</h1>
+</div>
 
-  <h2>these are your lists:</h2>
+<div class="row">
+  <div class="col-md-7">
+    <div class= "well" id="list_of_lists">
+      <div class="well" id = "list_header">
+        <h2>These are your lists:</h2>
+      </div>
 
-  <ul>
-    <% @lists.each do |list| %>
-    <li>
-      <a href="http://localhost:4567/lists/<%= list.name %>"> <%= list.name %></a>
-    </li>
-    <% end %>
-  </ul>
-
-  <form action="/lists" method="post">
-    <input type="text" name="list[name]" value="" placeholder="groceries">
-    <input class="btn btn-primary" type="submit" name="submit_button" value="Submit">
-  </form>
+      <ul>
+        <% @lists.each do |list| %>
+        <li class = "homepage">
+          <a class="btn btn-info" href="http://localhost:4567/lists/<%= list.name %>">   <span class = "list_items"><%= list.name %> </span></a>
+        </li>
+        <% end %>
+      </ul>
 
 
-  <a href="http://localhost:4567/next">
-    <img src="http://vignette2.wikia.nocookie.net/animaljam/images/3/35/Totoro_by_noodlecutie123-d3j76oj.png/revision/latest?cb=20150228122848" >
-  </a>
+      <h4><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 
-  <form action="/search?q=" method="get">
-    <input type="" name="q" value="" placeholder="orangatan">
-    <input class="btn btn-success"type="submit" name="submit_button" value="Search">
-  </form>
-<aside class="">
-</aside>
+        <span style="color:white;">
+Add new list</span></h4>
+
+        <form action="/lists" method="post">
+          <div class="form-group">
+
+            <input class="form-control" type="text" name="list[name]" value="" placeholder="groceries">
+            <input class="btn btn-primary btn-block" type="submit" name="submit_button" value="Submit">
+          </div>
+        </form>
+
+    </div>
+  </div>
+
+  <div class="col-md-5">
+
+    <div class="panel panel-primary">
+      <div class="panel-heading">Click for a random task!</div>
+      <div class="panel-body">
+        <a href="http://localhost:4567/next">
+          <img src="http://vignette2.wikia.nocookie.net/animaljam/images/3/35/Totoro_by_noodlecutie123-d3j76oj.png/revision/latest?cb=20150228122848" >
+        </a>
+      </div>
+    </div>
+
+
+
+    <div class="panel panel-primary">
+      <div class="panel-heading">Click to search for lists or tasks!</div>
+      <div class="panel-body">
+        <form action="/search?q=" method="get">
+          <div class="form-group">
+            <input class="form-control" type="" name="q" value="" placeholder="orangatan">
+            <input class="btn btn-warning btn-block"type="submit" name="submit_button" value="Search">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <aside class="">
+  </aside>
+</div>

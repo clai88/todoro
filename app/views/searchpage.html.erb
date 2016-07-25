@@ -9,7 +9,7 @@
 <ul>
   <% @matched_list_items.each do |list| %>
   <li>
-    <a href="http://localhost:4567/lists/<%= list.name %>"> <%= list.name %></a>
+    <a id="searchpage" class="btn btn-danger" href="http://localhost:4567/lists/<%= list.name %>"> <%= list.name %></a>
   </li>
   <% end %>
 </ul>
@@ -25,7 +25,7 @@
   <% @matched_task_items.each do |mtask| %>
   <li>
     <%list_name = (@lists.select { |list| mtask.list_id == list.id })[0].name %>
-    <a href="http://localhost:4567/lists/<%= list_name %>"> <%= mtask.name %></a>
+    <a id="searchpage" class="btn btn-danger" href="http://localhost:4567/lists/<%= list_name %>"> <%= mtask.name %></a>
   </li>
   <% end %>
 </ul>

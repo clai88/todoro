@@ -1,11 +1,19 @@
-  <h1>Here is a random task from the list: </h1>
-  <h3>Click on it to go to its list page</h3>
+<% if @empty_task %>
 
-  <a href="http://localhost:4567/lists/<%= @r_task_name %>"> <%= @random_task.name %></a>
+<h4>Sorry, there are currently no tasks to choose from.</h4>
 
-  <marquee><a href="http://localhost:4567/">
-    <img class="back_button" src="http://i644.photobucket.com/albums/uu168/melonangie/Anime/Totoro.png" >
-  </a>
+<% else %>
+<h1>Here is a random task from the list: <%= @r_task_name %> </h1>
+<h3>Click on it to go to its list page</h3>
+<h4>
+  <a class="btn btn-danger" href="http://localhost:4567/lists/<%= @r_task_name %>"> <%= @random_task.name %></a>
+</h4>
+
+<% end %>
+
+<marquee><a href="http://localhost:4567/">
+  <img class="back_button" src="http://i644.photobucket.com/albums/uu168/melonangie/Anime/Totoro.png" >
+</a>
 </marquee>
 <aside class="">
 

@@ -1,6 +1,9 @@
 require "./config/dependencies"
 require 'better_errors'
 
+
+
+
 class App < Sinatra::Base
   # Expose any file stored in this folder to the internet
   # http://localhost:4567/css/example.css
@@ -12,6 +15,11 @@ class App < Sinatra::Base
   configure :development do
     use BetterErrors::Middleware
     BetterErrors.application_root = __dir__
+  end
+
+
+  def find_list_name(task)
+    (List.all.select { |list| task.list_id == list.id })[0].name
   end
 
   get "/" do
@@ -51,7 +59,7 @@ class App < Sinatra::Base
     @task = Task.find(params["id"])
     @task.update(params["task"])
 
-    list_name = (List.all.select { |list| @task.list_id == list.id })[0].name
+    list_name = find_list_name(@task)
     # binding.pry
     redirect to("/lists/#{list_name}")
   end
@@ -60,15 +68,20 @@ class App < Sinatra::Base
     @task = Task.find(params["id"])
     @task.destroy
 
-    list_name = (List.all.select { |list| @task.list_id == list.id })[0].name
+    list_name = find_list_name(@task)
 
     redirect to("/lists/#{list_name}")
   end
 
   get "/next" do
     task = Task.all
-    @random_task = task[rand(0..task.length-1)]
-    @r_task_name = (List.all.select { |list| @random_task.list_id == list.id })[0].name
+    @empty_task = false
+    if task == []
+      @empty_task = true
+    else
+      @random_task = task[rand(0..task.length-1)]
+      @r_task_name = find_list_name(@random_task)
+    end
 
     erb :"randompage.html"
   end
@@ -76,6 +89,7 @@ class App < Sinatra::Base
   get "/search" do
     @query = params[:q]
     @lists = List.all
+  
     @matched_list_items = List.all.select { |i| i.name.include? @query }
     @matched_task_items = Task.all.select { |i| i.name.include? @query }
 

@@ -9,7 +9,7 @@
 
   <h2>these are your tasks:</h2>
 
-  <table class="table">
+  <table class="table table-striped">
     <thead>
       <tr>
         <th>
@@ -43,20 +43,20 @@
           <form action="/items/<%= task.id %>" method="POST">
             <input type="hidden" name="_method" value="PATCH">
             <input type="datetime-local" name="task[due_on]" value="" placeholder="April 1 2016">
-            <input type="submit" name="submit_button" value="Submit">
+            <input class="btn btn-warning" type="submit" name="submit_button" value="Submit">
           </form>
         </td>
         <td>
           <form action="/items/<%= task.id %>" method="POST">
             <input type="hidden" name="_method" value="DELETE">
-            <input type="submit" name="submit_button" value="Delete task">
+            <input class="btn btn-danger"  type="submit" name="submit_button" value="Delete task">
+
           </form>
         </td>
       </tr>
       <% end %>
     </tbody>
   </table>
-
   <% end %>
 
 

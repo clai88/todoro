@@ -1,9 +1,6 @@
 require "./config/dependencies"
 require 'better_errors'
 
-
-
-
 class App < Sinatra::Base
   # Expose any file stored in this folder to the internet
   # http://localhost:4567/css/example.css
@@ -20,6 +17,7 @@ class App < Sinatra::Base
 
   def find_list_name(task)
     (List.all.select { |list| task.list_id == list.id })[0].name
+    task.list.name
   end
 
   get "/" do
@@ -89,7 +87,7 @@ class App < Sinatra::Base
   get "/search" do
     @query = params[:q]
     @lists = List.all
-  
+
     @matched_list_items = List.all.select { |i| i.name.include? @query }
     @matched_task_items = Task.all.select { |i| i.name.include? @query }
 
